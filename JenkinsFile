@@ -16,7 +16,9 @@ node {
     deleteDir()
     withGolang {
       sh """
-        go get github.com/venicegeo/dg-geojson-go
+        go get -u github.com/alecthomas/gometalinter
+        gometalinter --install
+        go get -v github.com/venicegeo/dg-geojson-go
 
         cd \$GOPATH/src/github.com/venicegeo/dg-geojson-go
 
