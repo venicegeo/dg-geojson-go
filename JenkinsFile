@@ -1,0 +1,33 @@
+@Library('pipelib@master') _
+
+def THREADFIX_ID = env.THREADFIX_ID ? env.THREADFIX_ID : '115'
+
+node {
+  def root = pwd()
+
+  stage('Setup') {
+    git([
+      url: env.GIT_URL ? env.GIT_URL : 'https://github.com/venicegeo/dg-geojson-go
+      branch: "master"
+    ])
+  }
+
+  stage('Archive') {
+    deleteDir()
+    withGolang {
+      sh """
+        go get github.com/venicegeo/dg-geojson-go
+
+        cd \$GOPATH/src/github.com/venicegeo/dg-geojson-go
+
+        go build
+        go test -v -coverprofile=$root/geojson-go.cov github.com/venicegeo/dg-geojson-go/geojson
+        go tool cover -func=$root/geojson-go.cov -o $root/geojson-go.cov.txt
+        cd ${root}
+
+      """
+    }
+  }
+
+
+}
