@@ -22,7 +22,6 @@ node {
 
         cd \$GOPATH/src/github.com/venicegeo/dg-geojson-go
 
-        go build
         go test -v -coverprofile=$root/geojson-go.cov github.com/venicegeo/dg-geojson-go/geojson
         go tool cover -func=$root/geojson-go.cov -o $root/geojson-go.cov.txt
         cd ${root}
