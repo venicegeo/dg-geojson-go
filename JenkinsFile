@@ -7,7 +7,7 @@ node {
 
   stage('Setup') {
     git([
-      url: env.GIT_URL ? env.GIT_URL : 'https://github.com/venicegeo/dg-geojson-go
+      url: env.GIT_URL ? env.GIT_URL : 'https://github.com/venicegeo/dg-geojson-go',
       branch: "master"
     ])
   }
